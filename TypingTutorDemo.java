@@ -10,7 +10,7 @@ class MyThread extends Thread{
     int errors;
     double accuracy, speed;
 
-    MyThread(int err, double acc, double sp){     
+    MyThread(int err, double acc, double sp){      //Contsructor
 
         errors=err;
         accuracy=acc;
@@ -24,9 +24,9 @@ class MyThread extends Thread{
     }
 }
 
-class TypingTutor extends JFrame implements KeyListener, ActionListener {
+class TypingTutor extends JFrame implements KeyListener, ActionListener{
 
-    private final int WIDTH = 610, LENGTH = 650;    
+    private final int WIDTH = 610, LENGTH = 650;        //JFrame dimensions
 
     private JTextArea promptBox, typeBox;
     private JButton ResetButton;
@@ -39,7 +39,7 @@ class TypingTutor extends JFrame implements KeyListener, ActionListener {
     JPanel P1=new JPanel();
     JLabel L1=new JLabel();
 
-    TypingTutor(){      
+    TypingTutor(){      //Constructor
 
         this.setLayout(null);
         this.addKeyListener(this);
@@ -47,8 +47,8 @@ class TypingTutor extends JFrame implements KeyListener, ActionListener {
         //this.requestFocusInWindow();
 
         qwerty = "qwertyuiopasdfghjkl;'zxcvbnm,./ ";
-        //Text = new String("The average typing speed of a computer typist is just 36wpm. Touch typists are generally faster, averaging a quick 48 words per minute. The fastest typing speed ever recorded is currently an extreme 216 words per minute! Average accuracy is 92%. Bananas");
-        Text=new String("a b c");
+        Text = new String("The average typing speed of a computer typist is just 36wpm. Touch typists are generally faster, averaging a quick 48 words per minute. The fastest typing speed ever recorded is currently an extreme 216 words per minute! Average accuracy is 92%. Bananas");
+        //Text=new String("a b c");
         typedText = "> ";
         rowBreak1 = 10;
         rowBreak2 = 21;
@@ -118,37 +118,37 @@ class TypingTutor extends JFrame implements KeyListener, ActionListener {
         pane.add(numErrorsLabel);
         pane.add(ResetButton);
 
-        addButtons();     
-        addSpacebar();     
+        addButtons();       //calls addButtons Method
+        addSpacebar();      //calls addSpacebar Method
 
-        setVisible(true);           
-        setSize(WIDTH, LENGTH);       
-        setResizable(false);          
-        setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
+        setVisible(true);                   //Jframe visibility
+        setSize(WIDTH, LENGTH);               //Jframe dimesnions
+        setResizable(false);          //stops frame from resizing
+        setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);   //closes Jframe
 
     }
 
     @Override
-        public void actionPerformed(ActionEvent e) {  
+        public void actionPerformed(ActionEvent e) {        //When Reset Button is clicked
 
-            resetTypeBox();   
+            resetTypeBox();         // Calls resetTypeBox() Method
         }
 
-    public void addButtons() {
+    public void addButtons() {      //addButtons Method Defination
 
         for (int i = 0; i < qwerty.length()-1; ++i) {
 
             buttons.add(new JButton(Character.toString(qwerty.charAt(i))));
             buttons.get(i).setSize(50, 50);
 
-            setPosition(i);     
+            setPosition(i);     //calls setPosition Method
 
             this.getContentPane().add(buttons.get(i));
             buttons.get(i).setFocusable(false);
         }
     }
 
-    public void addSpacebar() {
+    public void addSpacebar() {     //addSpacebar Method Defination
 
         JButton spacebar = new JButton();
         buttons.add(spacebar);
@@ -157,17 +157,17 @@ class TypingTutor extends JFrame implements KeyListener, ActionListener {
         this.getContentPane().add(spacebar);
     }
 
-    public void setPosition(int i) {   
+    public void setPosition(int i) {        //setPosition Method Defination
 
-        if (i <= 9) {
+        if (i <= 9) {       //First Row Keys
 
             buttons.get(i).setLocation(10 + 50*i, 370);
         }
-        else if (i >= 10 && i < rowBreak2) {   
+        else if (i >= 10 && i < rowBreak2) {        //Second Row Keys
 
-            buttons.get(i).setLocation(30 + 50*(i-rowBreak1), 420);   
+            buttons.get(i).setLocation(30 + 50*(i-rowBreak1), 420);    //rowbreak1=10, rowbreak2==21
         }
-        else if (i >= rowBreak2) {
+        else if (i >= rowBreak2) {      //Third row Keys
 
             buttons.get(i).setLocation(50 + 50*(i-rowBreak2), 470);
         }
@@ -177,13 +177,13 @@ class TypingTutor extends JFrame implements KeyListener, ActionListener {
         }
     }
 
-    public void setButtonColor(KeyEvent key, int i) {   
+    public void setButtonColor(KeyEvent key, int i) {   //SetButtonColor Method Defination
 
-        if (key.getKeyChar() == Text.charAt(currentChar)) {   
+        if (key.getKeyChar() == Text.charAt(currentChar)) {     //When correct key's pressed
 
             buttons.get(i).setBackground(Color.green);
         }
-        else if (key.getKeyChar() != Text.charAt(currentChar)) {
+        else if (key.getKeyChar() != Text.charAt(currentChar)) {    //When wrong key's pressed
 
             buttons.get(i).setBackground(Color.red);
         }
@@ -193,7 +193,7 @@ class TypingTutor extends JFrame implements KeyListener, ActionListener {
     public void keyPressed (KeyEvent e) {      
 
         int i = qwerty.indexOf(e.getKeyChar());
-        setButtonColor(e, i);  
+        setButtonColor(e, i);  //calls setButtonColor Method
     }
 
     @Override
@@ -207,7 +207,7 @@ class TypingTutor extends JFrame implements KeyListener, ActionListener {
     public void keyTyped(KeyEvent e) {
     
         numKeysTyped++;
-        if(e.getKeyChar() == Text.charAt(currentChar)){    
+        if(e.getKeyChar() == Text.charAt(currentChar)){     //When correct key's pressed
 
             if(numKeysTyped==1){
 
@@ -218,7 +218,7 @@ class TypingTutor extends JFrame implements KeyListener, ActionListener {
             typeBox.setText(typedText);
             ++currentChar;
         }
-        else if (e.getKeyChar() != Text.charAt(currentChar)) {   
+        else if (e.getKeyChar() != Text.charAt(currentChar)) {      //When Worng Key's Pressed
 
             wrongLabel.setVisible(true);
             ++numErrors;
@@ -232,12 +232,12 @@ class TypingTutor extends JFrame implements KeyListener, ActionListener {
         if (currentChar == Text.length()) {   
 
             endTime = System.nanoTime();
-            calculateWPM();
-            displayFinalScreen();
+            calculateWPM();         //Calls calculateWPM method 
+            displayFinalScreen();   //Calls displayFinalScreenMethod
         }
     }
 
-    public void calculateWPM() {   
+    public void calculateWPM() {        //calculateWPM Method Defination
 
         double timeElapsed = endTime - startTime;
         int numWords = typedText.length() - 
@@ -245,20 +245,20 @@ class TypingTutor extends JFrame implements KeyListener, ActionListener {
         speed = numWords / (timeElapsed / 1000000000) * 60; 
     }
 
-    public void displayFinalScreen() {      
+    public void displayFinalScreen() {      //displayFinalScreen MEthod Defination
         
         accuracy = 100 - ((double)numErrors * 100 / numKeysTyped);
-        MyThread m=new MyThread(numErrors,accuracy, speed);
+        MyThread m=new MyThread(numErrors,accuracy, speed);     //Mythread Object
         m.start();      
     }
 
-    void resetcolor(char c){ 
+    void resetcolor(char c){        //resetcolor Method Defination
 
         int i = qwerty.indexOf(c);
         buttons.get(i).setBackground(null);
     }
 
-    public void resetTypeBox() {   
+    public void resetTypeBox() {        //resetTypeBox Method defination
 
         resetcolor(Text.charAt(currentChar-1));
         numErrorsLabel.setText("Errors: " );
@@ -268,11 +268,12 @@ class TypingTutor extends JFrame implements KeyListener, ActionListener {
         currentChar = 0;
         numKeysTyped = 0;
         typeBox.setText(typedText);
-    }   
+    }
 }
 
-class TypingTutorDemo{
-    public static void main(String[] args) {
-        TypingTutor ProjectDemo=new TypingTutor();
+class TypingTutorDemo{  //Main Class
+    public static void main(String[] args) {        //Main Method
+
+        TypingTutor P1=new TypingTutor();       //TypingTutor Object
     }
 }
